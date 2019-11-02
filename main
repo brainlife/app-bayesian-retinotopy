@@ -4,8 +4,7 @@
 #PBS -V
 
 fsdir=$(jq -r .output config.json)
-prf_dir=$(jq -r .prf config.json)
-prf_surfs=$prf_dir/benson14_surfaces
+prf_surfs=$(jq -r .prf_surfs config.json)
 
 time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "cp -R $fsdir $FREESURFER_HOME/subjects && python -m register_retinotopy output \
   --verbose \
