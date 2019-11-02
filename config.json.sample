@@ -1,0 +1,4 @@
+{
+"freesurfer": "testdata/output",
+"prf": "testdata/prf"
+}

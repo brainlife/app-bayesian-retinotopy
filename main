@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=1:00:00
+#PBS -N pRF
+#PBS -V
+
+fsdir=$(jq -r .output config.json)
+prf_dir=$(jq -r .prf config.json)
+prf_surfs=$prf_dir/benson14_surfaces
+
+time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "cp -R $fsdir $FREESURFER_HOME/subjects && python -m register_retinotopy output \
+  --verbose \
+  --lh-eccen=$prf_surfs/lh.benson14_eccentricity \
+  --lh-angle=$prf_surfs/lh.benson14_polarAngle \
+  --lh-weight=$prf_surfs/lh.benson14_r2 \
+  --lh-radius=$prf_surfs/lh.benson14_rfWidth \
+  --rh-eccen=$prf_surfs/rh.benson14_eccentricity \
+  --rh-angle=$prf_surfs/rh.benson14_polarAngle \
+  --rh-weight=$prf_surfs/rh.benson14_r2 \
+  --rh-radius=$prf_surfs/rh.benson14_rfWidth \
+  && cp -R $FREESURFER_HOME/subjects/output ./ret_output"
