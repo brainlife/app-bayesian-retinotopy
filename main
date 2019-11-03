@@ -6,7 +6,7 @@
 fsdir=$(jq -r .output config.json)
 prf_surfs=$(jq -r .prf_surfs config.json)
 
-time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "cp -R $fsdir /usr/local/freesurfer/subjects && python -m register_retinotopy output \
+time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "python -m register_retinotopy output \
   --verbose \
   --lh-eccen=$prf_surfs/lh.benson14_eccentricity \
   --lh-angle=$prf_surfs/lh.benson14_polarAngle \
@@ -16,4 +16,5 @@ time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "cp -R $fsdir /
   --rh-angle=$prf_surfs/rh.benson14_polarAngle \
   --rh-weight=$prf_surfs/rh.benson14_r2 \
   --rh-radius=$prf_surfs/rh.benson14_rfWidth \
-  && cp -R /usr/local/freesurfer/subjects/output ./ret_output"
+  --subjects-dir=$(dirname $fsdir) \
+  && cp -R $fsdir ./ret_output"
