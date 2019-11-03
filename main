@@ -6,7 +6,7 @@
 fsdir=$(jq -r .output config.json)
 prf_surfs=$(jq -r .prf_surfs config.json)
 
-time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "python -m register_retinotopy output \
+time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "python -m neuropythy register_retinotopy output \
   --verbose \
   --lh-eccen=$prf_surfs/lh.benson14_eccentricity \
   --lh-angle=$prf_surfs/lh.benson14_polarAngle \
