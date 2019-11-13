@@ -10,7 +10,8 @@ from scipy.io import loadmat
 
 with open('config.json') as config_json:
     config = json.load(config_json)
-fs_dir = config['freesurfer']
+fs_dir = config['output']
+prf_surfs = config['prf_surfs']
 
 giftis = loadmat('./saved_giftis.mat')
 
@@ -21,7 +22,7 @@ fsio.write_geometry(fs_dir + '_MNI/surf/rh.white', giftis['rhWhiteCoords'], gift
 fsio.write_geometry(fs_dir + '_MNI/surf/lh.white', giftis['lhWhiteCoords'], giftis['lhWhiteFaces'])
 
 # load MNI-space pRF parameter surfaces
-prf_surfs = config['prf'] + '/benson14_surfaces'
+
 rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.benson14_eccentricity')
 rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.benson14_r2')
 rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.benson14_rfWidth')
