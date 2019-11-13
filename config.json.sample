@@ -1,4 +1,5 @@
 {
 "freesurfer": "testdata/output",
-"prf": "testdata/prf"
+"prf": "testdata/prf",
+"sphere_reg": "sphere/reg"
 }

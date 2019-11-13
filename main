@@ -1,20 +1,35 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=1:00:00
+#PBS -l nodes=1:ppn=4,vmem=100gb,walltime=2:00:00
 #PBS -N pRF
 #PBS -V
 
 fsdir=$(jq -r .output config.json)
 prf_surfs=$(jq -r .prf_surfs config.json)
 
+export SUBJECTS_DIR=`pwd`
+cp -R fsdir $SUBJECTS_DIR && cp -R fsdir $SUBJECTS_DIR/$(basename $fsdir)_MNI
+
+rm -R $SUBJECTS_DIR/$(basename $fsdir)_MNI/surf && mkdir $SUBJECTS_DIR/$(basename $fsdir)_MNI/surf
+
+
+
+mkdir interpolated_prf_surfs
+mkdir ret_output
+
+
+time singularity exec -e docker://brainlife/mcr:r2019a ./compiled/main
+
+time singularity exec -e docker://davhunt/neuropythy:1.5 python ./interpolate.py
+
 time singularity exec -e docker://davhunt/neuropythy:1.5 bash -c "python -m neuropythy register_retinotopy output \
   --verbose \
-  --lh-eccen=$prf_surfs/lh.benson14_eccentricity \
-  --lh-angle=$prf_surfs/lh.benson14_polarAngle \
-  --lh-weight=$prf_surfs/lh.benson14_r2 \
-  --lh-radius=$prf_surfs/lh.benson14_rfWidth \
-  --rh-eccen=$prf_surfs/rh.benson14_eccentricity \
-  --rh-angle=$prf_surfs/rh.benson14_polarAngle \
-  --rh-weight=$prf_surfs/rh.benson14_r2 \
-  --rh-radius=$prf_surfs/rh.benson14_rfWidth \
+  --lh-eccen=interpolated_prf_surfs/lh.benson14_eccentricity \
+  --lh-angle=interpolated_prf_surfs/lh.benson14_polarAngle \
+  --lh-weight=interpolated_prf_surfs/lh.benson14_r2 \
+  --lh-radius=interpolated_prf_surfs/lh.benson14_rfWidth \
+  --rh-eccen=interpolated_prf_surfs/rh.benson14_eccentricity \
+  --rh-angle=interpolated_prf_surfs/rh.benson14_polarAngle \
+  --rh-weight=interpolated_prf_surfs/rh.benson14_r2 \
+  --rh-radius=interpolated_prf_surfs/rh.benson14_rfWidth \
   --subjects-dir=$(dirname $fsdir) \
   && cp -R $fsdir ./ret_output"
