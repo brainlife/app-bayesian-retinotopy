@@ -76,10 +76,10 @@ rhSphereRegCoords = gifti('./output_MNI/surf/rh.sphere.reg.gii'); rhSphereRegCoo
 rhSphereRegFaces = gifti('./output_MNI/surf/rh.sphere.reg.gii'); rhSphereRegFaces = rhSphereRegFaces.faces;
 lhSphereRegCoords = gifti('./output_MNI/surf/lh.sphere.reg.gii'); lhSphereRegCoords = lhSphereRegCoords.vertices;
 lhSphereRegFaces = gifti('./output_MNI/surf/lh.sphere.reg.gii'); lhSphereRegFaces = lhSphereRegFaces.faces;
-rhWhiteCoords = gifti('./output_MNI/surf/rh.white'); rhWhiteCoords = rhWhiteCoords.vertices;
-rhWhiteFaces = gifti('./output_MNI/surf/rh.white'); rhWhiteFaces = rhWhiteFaces.faces;
-lhWhiteCoords = gifti('./output_MNI/surf/lh.white'); lhWhiteCoords = lhWhiteCoords.vertices;
-lhWhiteFaces = gifti('./output_MNI/surf/lh.white'); lhWhiteFaces = lhWhiteFaces.faces;
+rhWhiteCoords = gifti('./output_MNI/surf/rh.white.gii'); rhWhiteCoords = rhWhiteCoords.vertices;
+rhWhiteFaces = gifti('./output_MNI/surf/rh.white.gii'); rhWhiteFaces = rhWhiteFaces.faces;
+lhWhiteCoords = gifti('./output_MNI/surf/lh.white.gii'); lhWhiteCoords = lhWhiteCoords.vertices;
+lhWhiteFaces = gifti('./output_MNI/surf/lh.white.gii'); lhWhiteFaces = lhWhiteFaces.faces;
 
 save('./saved_giftis.mat','rhSphereRegCoords','rhSphereRegFaces','lhSphereRegCoords','lhSphereRegFaces', ...
 'rhWhiteCoords','rhWhiteFaces','lhWhiteCoords','lhWhiteFaces')
