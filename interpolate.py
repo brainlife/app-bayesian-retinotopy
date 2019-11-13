@@ -4,11 +4,13 @@ import nibabel as nib
 import nibabel.freesurfer.io as fsio
 import os
 import neuropythy as ny
+import json
 
 from scipy.io import loadmat
 
-config = loadjson('config.json')
-fs_dir = config.output
+with open('config.json') as config_json:
+    config = json.load(config_json)
+fs_dir = config['freesurfer']
 
 giftis = loadmat('./saved_giftis.mat')
 
@@ -19,17 +21,15 @@ fsio.write_geometry(fs_dir + '_MNI/surf/rh.white', giftis['rhWhiteCoords'], gift
 fsio.write_geometry(fs_dir + '_MNI/surf/lh.white', giftis['lhWhiteCoords'], giftis['lhWhiteFaces'])
 
 # load MNI-space pRF parameter surfaces
-prfs = config.prf_surfs
-rh_eccentricity = fsio.read_morph_data(prfs + 'rh.benson14_eccentricity')
-rh_r2 = fsio.read_morph_data(prfs + 'rh.benson14_r2')
-rh_rfWidth = fsio.read_morph_data(prfs + 'rh.benson14_rfWidth')
-rh_polarAngle = fsio.read_morph_data(prfs + 'rh.benson14_polarAngle')
-lh_eccentricity = fsio.read_morph_data(prfs + 'lh.benson14_eccentricity')
-lh_r2 = fsio.read_morph_data(prfs + 'lh.benson14_r2')
-lh_rfWidth = fsio.read_morph_data(prfs + 'lh.benson14_rfWidth')
-lh_polarAngle = fsio.read_morph_data(prfs + 'lh.benson14_polarAngle')
-
-
+prf_surfs = config['prf'] + '/benson14_surfaces'
+rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.benson14_eccentricity')
+rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.benson14_r2')
+rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.benson14_rfWidth')
+rh_polarAngle = fsio.read_morph_data(prf_surfs + '/rh.benson14_polarAngle')
+lh_eccentricity = fsio.read_morph_data(prf_surfs + '/lh.benson14_eccentricity')
+lh_r2 = fsio.read_morph_data(prf_surfs + '/lh.benson14_r2')
+lh_rfWidth = fsio.read_morph_data(prf_surfs + '/lh.benson14_rfWidth')
+lh_polarAngle = fsio.read_morph_data(prf_surfs + '/lh.benson14_polarAngle')
 
 
 
