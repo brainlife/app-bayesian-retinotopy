@@ -10,7 +10,7 @@ from scipy.io import loadmat
 
 with open('config.json') as config_json:
     config = json.load(config_json)
-fs_dir = config['output']
+fs_dir = './' + os.path.basename(config['output'])
 prf_surfs = config['prf_surfs']
 
 giftis = loadmat('./saved_giftis.mat')
