@@ -44,7 +44,7 @@ new_rh = prf_sub.rh
 new_rh = new_rh.with_prop(eccentricity=rh_eccentricity, r2=rh_r2, rfWidth=rh_rfWidth, polarAngle=rh_polarAngle)
 
 #for hemi in ['rh' 'lh']:
-for i in ['eccentricity' 'r2' 'rfWidth' 'polarAngle']:
+for i in ['eccentricity', 'r2', 'rfWidth', 'polarAngle']:
     prf_interpolated_lh = new_lh.interpolate(native_sub.lh, prf_sub.lh.prop(i), method='linear')
     prf_interpolated_rh = new_rh.interpolate(native_sub.rh, prf_sub.rh.prop(i), method='linear')
     #fsio.write_morph_data('./interpolated_prf_surfs/' + hemi + '.' + i, prf_interpolated)
@@ -53,5 +53,6 @@ for i in ['eccentricity' 'r2' 'rfWidth' 'polarAngle']:
 
 
 
-    fsio.write_morph_data('./interpolated_prf_surfs/lh.' + i, prf_interpolated_lh)
-    fsio.write_morph_data('./interpolated_prf_surfs/rh.' + i, prf_interpolated_rh)
+    fsio.write_morph_data('./interpolated_prf_surfs/lh.benson14_' + i, prf_interpolated_lh)
+    fsio.write_morph_data('./interpolated_prf_surfs/rh.benson14_' + i, prf_interpolated_rh)
+
