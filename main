@@ -32,4 +32,4 @@ time singularity exec -e docker://davhunt/neuropythy:1.5.1 bash -c "python -m ne
   --rh-weight=interpolated_prf_surfs/rh.benson14_r2 \
   --rh-radius=interpolated_prf_surfs/rh.benson14_rfWidth \
   --subjects-dir=$(dirname $fsdir) \
-  && cp -R $fsdir ./ret_output"
+  && cp -R ./$(basename $fsdir) ./ret_output" # in ./output/mri/inferred* and ./output/surf/inferred*
