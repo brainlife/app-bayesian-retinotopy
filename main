@@ -34,6 +34,9 @@ time singularity exec -e docker://davhunt/neuropythy:1.5.1 bash -c "python -m ne
   --subjects-dir=$(dirname $fsdir) \
   && cp -R ./$(basename $fsdir) ./ret_output" # in ./output/mri/inferred* and ./output/surf/inferred*
 
+[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
+echo $FREESURFER_LICENSE > license.txt
+
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh ./ret_output/$(basename $fsdir)
 
 
