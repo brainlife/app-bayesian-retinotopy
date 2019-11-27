@@ -9,15 +9,23 @@ do
 done
 
 echo "organizing output"
-mkdir -p prf/benson14_surfaces varea
 mv ./ret_output/$(basename $fsdir)/surf/*inferred* prf/benson14_surfaces
 mv ./ret_output/$(basename $fsdir)/mri/*inferred*.nii.gz prf
+
 
 mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz 
 mv prf/inferred_sigma.nii.gz prf/rfWidth.nii.gz 
 mv prf/inferred_angle.nii.gz prf/polarAngle.nii.gz 
 mv prf/inferred_varea.nii.gz prf/varea.nii.gz 
 cp prf/inferred_varea.nii.gz varea/parc.nii.gz
+
+for i in rh lh
+do
+  mv prf/benson14_surfaces/{i}.inferred_eccen prf/benson14_surfaces/{i}.eccentricity
+  mv prf/benson14_surfaces/{i}.inferred_sigma prf/benson14_surfaces/{i}.rfWidth
+  mv prf/benson14_surfaces/{i}.inferred_angle prf/benson14_surfaces/{i}.polarAngle
+  mv prf/benson14_surfaces/{i}.inferred_varea prf/benson14_surfaces/{i}.varea
+done
 
 echo "creating vtks"
 mkdir -p prf/surfaces
