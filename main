@@ -34,39 +34,12 @@ time singularity exec -e docker://davhunt/neuropythy:1.5.1 bash -c "python -m ne
   --subjects-dir=$(dirname $fsdir) \
   && cp -R ./$(basename $fsdir) ./ret_output" # in ./output/mri/inferred* and ./output/surf/inferred*
 
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh ./ret_output/$(basename $fsdir)
 
-
-
-echo "converting output to nifti"
-for i in ./ret_output/mri/*inferred*
-do 
-	mri_convert $i ${i%.*}.nii.gz
-done
-
-echo "organizing output"
-mkdir -p prf/benson14_surfaces varea
-mv ./ret_output/surf/*inferred* prf/benson14_surfaces
-mv ./ret_output/mri/*inferred* prf
-
-mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz 
-mv prf/inferred_sigma.nii.gz prf/rfWidth.nii.gz 
-mv prf/inferred_angle.nii.gz prf/polarAngle.nii.gz 
-mv prf/inferred_varea.nii.gz prf/varea.nii.gz 
-cp prf/inferred_varea.nii.gz varea/parc.nii.gz
 
 echo "running create_R2"
 # this will create a binary mask R2 of 1's and 0's
 # based on whether a voxel is assigned a visual area or not
 ./create_R2.py ./varea/parc.nii.gz
 
-echo "creating vtks"
-mkdir -p prf/surfaces
-mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
-mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
-mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
-mris_convert --to-scanner $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
-
+rm -rf ./ret_output
