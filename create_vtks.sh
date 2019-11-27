@@ -21,10 +21,10 @@ cp prf/inferred_varea.nii.gz varea/parc.nii.gz
 
 for i in rh lh
 do
-  mv prf/benson14_surfaces/{i}.inferred_eccen prf/benson14_surfaces/{i}.eccentricity
-  mv prf/benson14_surfaces/{i}.inferred_sigma prf/benson14_surfaces/{i}.rfWidth
-  mv prf/benson14_surfaces/{i}.inferred_angle prf/benson14_surfaces/{i}.polarAngle
-  mv prf/benson14_surfaces/{i}.inferred_varea prf/benson14_surfaces/{i}.varea
+  mv prf/benson14_surfaces/${i}.inferred_eccen prf/benson14_surfaces/${i}.eccentricity
+  mv prf/benson14_surfaces/${i}.inferred_sigma prf/benson14_surfaces/${i}.rfWidth
+  mv prf/benson14_surfaces/${i}.inferred_angle prf/benson14_surfaces/${i}.polarAngle
+  mv prf/benson14_surfaces/${i}.inferred_varea prf/benson14_surfaces/${i}.varea
 done
 
 echo "creating vtks"
