@@ -23,7 +23,7 @@ mkdir ret_output
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
-time singularity exec -e docker://davhunt/neuropythy:1.5.1 bash -c "python ./interpolate.py \
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://davhunt/neuropythy:1.5.1 bash -c "python ./interpolate.py \
   && python -m neuropythy register_retinotopy output \
   --verbose \
   --lh-eccen=interpolated_prf_surfs/lh.benson14_eccentricity \
@@ -34,7 +34,7 @@ time singularity exec -e docker://davhunt/neuropythy:1.5.1 bash -c "python ./int
   --rh-angle=interpolated_prf_surfs/rh.benson14_polarAngle \
   --rh-weight=interpolated_prf_surfs/rh.benson14_r2 \
   --rh-radius=interpolated_prf_surfs/rh.benson14_rfWidth \
-  --subjects-dir=$(dirname $fsdir) \
+  --subjects-dir=`pwd` \
   && cp -R ./$(basename $fsdir) ./ret_output \
   && ./create_vtks.sh ./ret_output/$(basename $fsdir)"
   #&& ./create_R2.py ./ret_output/$(basename $fsdir)/mri/inferred_varea.

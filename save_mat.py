@@ -5,12 +5,6 @@ import nibabel as nib
 import nibabel.freesurfer.io as fsio
 import scipy.io as sio
 
-mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz 
-mv prf/inferred_sigma.nii.gz prf/rfWidth.nii.gz 
-mv prf/inferred_angle.nii.gz prf/polarAngle.nii.gz 
-mv prf/inferred_varea.nii.gz prf/varea.nii.gz 
-cp prf/varea.nii.gz varea/parc.nii.gz
-
 rh_eccentricity = fsio.read_morph_data('./prf/benson14_surfaces/rh.eccentricity')
 rh_rfWidth = fsio.read_morph_data('./prf/benson14_surfaces/rh.rfWidth')
 rh_polarAngle = fsio.read_morph_data('./prf/benson14_surfaces/rh.polarAngle')
