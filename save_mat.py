@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+import numpy as np
+import nibabel as nib
+import nibabel.freesurfer.io as fsio
+import scipy.io as sio
+
+mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz 
+mv prf/inferred_sigma.nii.gz prf/rfWidth.nii.gz 
+mv prf/inferred_angle.nii.gz prf/polarAngle.nii.gz 
+mv prf/inferred_varea.nii.gz prf/varea.nii.gz 
+cp prf/varea.nii.gz varea/parc.nii.gz
+
+rh_eccentricity = fsio.read_morph_data('./prf/benson14_surfaces/rh.eccentricity')
+rh_rfWidth = fsio.read_morph_data('./prf/benson14_surfaces/rh.rfWidth')
+rh_polarAngle = fsio.read_morph_data('./prf/benson14_surfaces/rh.polarAngle')
+rh_varea = fsio.read_morph_data('./prf/benson14_surfaces/rh.varea')
+rh_r2 = fsio.read_morph_data('./prf/benson14_surfaces/rh.r2')
+lh_eccentricity = fsio.read_morph_data('./prf/benson14_surfaces/lh.eccentricity')
+lh_rfWidth = fsio.read_morph_data('./prf/benson14_surfaces/lh.rfWidth')
+lh_polarAngle = fsio.read_morph_data('./prf/benson14_surfaces/lh.polarAngle')
+lh_varea = fsio.read_morph_data('./prf/benson14_surfaces/lh.varea')
+lh_r2 = fsio.read_morph_data('./prf/benson14_surfaces/lh.r2')
+
+prf_surfs = {
+  'rh_eccentricity': rh_eccentricity,
+  'rh_rfWidth': rh_rfWidth,
+  'rh_polarAngle': rh_polarAngle,
+  'rh_varea': rh_varea,
+  'rh_r2': rh_r2,
+  'lh_eccentricity': lh_eccentricity,
+  'lh_rfWidth': lh_rfWidth,
+  'lh_polarAngle': lh_polarAngle,
+  'lh_varea': lh_varea,
+  'lh_r2': lh_r2
+}
+
+sio.savemat('./prf/prf_surfs.mat',prf_surfs)

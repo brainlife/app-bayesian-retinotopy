@@ -21,6 +21,10 @@ setenv('PATH', [PATH ':/usr/bin']);
 %setenv('LD_LIBRARY_PATH', [LD_LIBRARY_PATH ':/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64']);
 
 % compute pRF
-createSurfs();
+if exist('./ret_output', 'dir') ~= 7
+  createSurfs();
+else
+  createGiftis();
+end
 
 end

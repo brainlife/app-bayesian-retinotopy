@@ -17,7 +17,7 @@ mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz
 mv prf/inferred_sigma.nii.gz prf/rfWidth.nii.gz 
 mv prf/inferred_angle.nii.gz prf/polarAngle.nii.gz 
 mv prf/inferred_varea.nii.gz prf/varea.nii.gz 
-cp prf/inferred_varea.nii.gz varea/parc.nii.gz
+cp prf/varea.nii.gz varea/parc.nii.gz
 
 for i in rh lh
 do
@@ -26,6 +26,15 @@ do
   mv prf/benson14_surfaces/${i}.inferred_angle prf/benson14_surfaces/${i}.polarAngle
   mv prf/benson14_surfaces/${i}.inferred_varea prf/benson14_surfaces/${i}.varea
 done
+
+echo "running create_R2"
+# this will create a binary mask R2 of 1's and 0's
+# based on whether a voxel is assigned a visual area or not
+./create_R2.py ./varea/parc.nii.gz ./prf/benson14_surfaces/rh.varea ./prf/benson14_surfaces/lh.varea
+
+echo "saving surfaces in .mat file"
+./save_mat.py
+
 
 echo "creating vtks"
 mkdir -p prf/surfaces
