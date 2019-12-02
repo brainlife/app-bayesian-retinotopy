@@ -23,14 +23,23 @@ fsio.write_geometry(fs_dir + '_MNI/surf/lh.white', giftis['lhWhiteCoords'], gift
 
 # load MNI-space pRF parameter surfaces
 
-rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.benson14_eccentricity')
-rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.benson14_r2')
-rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.benson14_rfWidth')
-rh_polarAngle = fsio.read_morph_data(prf_surfs + '/rh.benson14_polarAngle')
-lh_eccentricity = fsio.read_morph_data(prf_surfs + '/lh.benson14_eccentricity')
-lh_r2 = fsio.read_morph_data(prf_surfs + '/lh.benson14_r2')
-lh_rfWidth = fsio.read_morph_data(prf_surfs + '/lh.benson14_rfWidth')
-lh_polarAngle = fsio.read_morph_data(prf_surfs + '/lh.benson14_polarAngle')
+#rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.benson14_eccentricity')
+#rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.benson14_r2')
+#rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.benson14_rfWidth')
+#rh_polarAngle = fsio.read_morph_data(prf_surfs + '/rh.benson14_polarAngle')
+#lh_eccentricity = fsio.read_morph_data(prf_surfs + '/lh.benson14_eccentricity')
+#lh_r2 = fsio.read_morph_data(prf_surfs + '/lh.benson14_r2')
+#lh_rfWidth = fsio.read_morph_data(prf_surfs + '/lh.benson14_rfWidth')
+#lh_polarAngle = fsio.read_morph_data(prf_surfs + '/lh.benson14_polarAngle')
+
+rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.eccentricity')
+rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.r2')
+rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.rfWidth')
+rh_polarAngle = fsio.read_morph_data(prf_surfs + '/rh.polarAngle')
+lh_eccentricity = fsio.read_morph_data(prf_surfs + '/lh.eccentricity')
+lh_r2 = fsio.read_morph_data(prf_surfs + '/lh.r2')
+lh_rfWidth = fsio.read_morph_data(prf_surfs + '/lh.rfWidth')
+lh_polarAngle = fsio.read_morph_data(prf_surfs + '/lh.polarAngle')
 
 
 
@@ -53,6 +62,9 @@ for i in ['eccentricity', 'r2', 'rfWidth', 'polarAngle']:
 
 
 
-    fsio.write_morph_data('./interpolated_prf_surfs/lh.benson14_' + i, prf_interpolated_lh)
-    fsio.write_morph_data('./interpolated_prf_surfs/rh.benson14_' + i, prf_interpolated_rh)
+    #fsio.write_morph_data('./interpolated_prf_surfs/lh.benson14_' + i, prf_interpolated_lh)
+    #fsio.write_morph_data('./interpolated_prf_surfs/rh.benson14_' + i, prf_interpolated_rh)
+    fsio.write_morph_data('./interpolated_prf_surfs/lh.' + i, prf_interpolated_lh)
+    fsio.write_morph_data('./interpolated_prf_surfs/rh.' + i, prf_interpolated_rh)
+
 
