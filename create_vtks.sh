@@ -25,6 +25,7 @@ do
   mv prf/benson14_surfaces/${i}.inferred_sigma prf/benson14_surfaces/${i}.rfWidth
   mv prf/benson14_surfaces/${i}.inferred_angle prf/benson14_surfaces/${i}.polarAngle
   mv prf/benson14_surfaces/${i}.inferred_varea prf/benson14_surfaces/${i}.varea
+  cp prf/benson14_surfaces/${i}.varea varea_surf/${i}.parc.annot
 done
 
 echo "running create_R2"
@@ -38,11 +39,11 @@ echo "saving surfaces in .mat file"
 
 echo "creating vtks"
 mkdir -p prf/surfaces
-mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
-mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
-mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
-mris_convert --to-scanner $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
+mris_convert $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
+mris_convert $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
+mris_convert $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
+mris_convert $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
+mris_convert $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
+mris_convert $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
+mris_convert $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
+mris_convert $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
