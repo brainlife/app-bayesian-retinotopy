@@ -9,7 +9,7 @@ do
 done
 
 echo "organizing output"
-mv ./ret_output/$(basename $fsdir)/surf/*inferred* prf/benson14_surfaces
+mv ./ret_output/$(basename $fsdir)/surf/*inferred* prf/prf_surfaces
 mv ./ret_output/$(basename $fsdir)/mri/*inferred*.nii.gz prf
 
 
@@ -21,17 +21,17 @@ cp prf/varea.nii.gz varea/parc.nii.gz
 
 for i in rh lh
 do
-  mv prf/benson14_surfaces/${i}.inferred_eccen prf/benson14_surfaces/${i}.eccentricity
-  mv prf/benson14_surfaces/${i}.inferred_sigma prf/benson14_surfaces/${i}.rfWidth
-  mv prf/benson14_surfaces/${i}.inferred_angle prf/benson14_surfaces/${i}.polarAngle
-  mv prf/benson14_surfaces/${i}.inferred_varea prf/benson14_surfaces/${i}.varea
-  cp prf/benson14_surfaces/${i}.varea varea_surf/${i}.parc.annot
+  mv prf/prf_surfaces/${i}.inferred_eccen prf/prf_surfaces/${i}.eccentricity
+  mv prf/prf_surfaces/${i}.inferred_sigma prf/prf_surfaces/${i}.rfWidth
+  mv prf/prf_surfaces/${i}.inferred_angle prf/prf_surfaces/${i}.polarAngle
+  mv prf/prf_surfaces/${i}.inferred_varea prf/prf_surfaces/${i}.varea
+  cp prf/prf_surfaces/${i}.varea varea_surf/${i}.parc.annot
 done
 
 echo "running create_R2"
 # this will create a binary mask R2 of 1's and 0's
 # based on whether a voxel is assigned a visual area or not
-./create_R2.py ./varea/parc.nii.gz ./prf/benson14_surfaces/rh.varea ./prf/benson14_surfaces/lh.varea
+./create_R2.py ./varea/parc.nii.gz ./prf/prf_surfaces/rh.varea ./prf/prf_surfaces/lh.varea
 
 echo "saving surfaces in .mat file"
 ./save_mat.py
