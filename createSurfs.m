@@ -31,21 +31,21 @@ function createSurfs()
 lh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii');
 rh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii');
 
-lh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.atlasroi.32k_fs_LR.shape.gii');
-rh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.atlasroi.32k_fs_LR.shape.gii');
+lh_32k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.atlasroi.32k_fs_LR.shape.gii');
+rh_32k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.atlasroi.32k_fs_LR.shape.gii');
 
-lh_59k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.white_MSMAll.32k_fs_LR.surf.gii');
-rh_59k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.white_MSMAll.32k_fs_LR.surf.gii');
+lh_32k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.white_MSMAll.32k_fs_LR.surf.gii');
+rh_32k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.white_MSMAll.32k_fs_LR.surf.gii');
 % 59k GIFTIs in MNI space
 
-lh_59k_inflated = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.very_inflated_MSMAll.32k_fs_LR.surf.gii');
-rh_59k_inflated = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.very_inflated_MSMAll.32k_fs_LR.surf.gii');
+lh_32k_inflated = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.very_inflated_MSMAll.32k_fs_LR.surf.gii');
+rh_32k_inflated = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.very_inflated_MSMAll.32k_fs_LR.surf.gii');
 
-lh_59k_pial = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.pial_MSMAll.32k_fs_LR.surf.gii');
-rh_59k_pial = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.pial_MSMAll.32k_fs_LR.surf.gii');
+lh_32k_pial = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.pial_MSMAll.32k_fs_LR.surf.gii');
+rh_32k_pial = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.pial_MSMAll.32k_fs_LR.surf.gii');
 
-lh_59k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.sphere.32k_fs_LR.surf.gii');
-rh_59k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.sphere.32k_fs_LR.surf.gii');
+lh_32k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.sphere.32k_fs_LR.surf.gii');
+rh_32k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.sphere.32k_fs_LR.surf.gii');
 
 
 
@@ -59,7 +59,7 @@ new_vertices = struct;
 new_faces = struct;
 
 for hemi = {'lh' 'rh'}
-  atlas = eval([char(hemi),'_59k_atlas']);
+  atlas = eval([char(hemi),'_32k_atlas']);
   good_vertices_index.(char(hemi)) = [];
   for i=(1:size(atlas.cdata,1))
     if atlas.cdata(i,1) == 1
@@ -68,7 +68,7 @@ for hemi = {'lh' 'rh'}
     end
   end
 
-  for surf = {'_fsLR_fsaverage_reg' '_59k_white' '_59k_inflated' '_59k_pial' '_59k_sphere'}
+  for surf = {'_fsLR_fsaverage_reg' '_32k_white' '_32k_inflated' '_32k_pial' '_32k_sphere'}
     new_vertices.([char(hemi),char(surf)]) = [];
     surfMesh = eval([char(hemi),char(surf)]);
     
@@ -100,7 +100,7 @@ for hemi = {'lh' 'rh'}
     end
 
 
-  for surf = {'_fsLR_fsaverage_reg' '_59k_white' '_59k_inflated' '_59k_pial' '_59k_sphere'}
+  for surf = {'_fsLR_fsaverage_reg' '_32k_white' '_32k_inflated' '_32k_pial' '_32k_sphere'}
 %for surf = {'_fsLR_fsaverage_reg' '_59k_white'}
     tmpgii = gifti;
     tmpgii.vertices = single(new_vertices.([char(hemi),char(surf)]));
@@ -108,13 +108,13 @@ for hemi = {'lh' 'rh'}
     tmpgii.mat = surfMesh.mat;
     if strcmp(char(surf),'_fsLR_fsaverage_reg')
       save_gifti(tmpgii,['./output_MNI/surf/',char(hemi),'.sphere.reg.gii']);
-    elseif strcmp(char(surf),'_59k_white')
+    elseif strcmp(char(surf),'_32k_white')
       save_gifti(tmpgii,['./output_MNI/surf/',char(hemi),'.white.gii']);
-    elseif strcmp(char(surf),'_59k_inflated')
+    elseif strcmp(char(surf),'_32k_inflated')
       save_gifti(tmpgii,['./output_MNI/surf/',char(hemi),'.inflated.gii']);
-    elseif strcmp(char(surf),'_59k_pial')
+    elseif strcmp(char(surf),'_32k_pial')
       save_gifti(tmpgii,['./output_MNI/surf/',char(hemi),'.pial.gii']);
-    elseif strcmp(char(surf),'_59k_sphere')
+    elseif strcmp(char(surf),'_32k_sphere')
       save_gifti(tmpgii,['./output_MNI/surf/',char(hemi),'.sphere.gii']);
     end
   end
