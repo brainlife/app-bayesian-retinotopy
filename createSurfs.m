@@ -79,7 +79,7 @@ for hemi = {'lh' 'rh'}
 end
 
 for hemi = {'lh' 'rh'}
-  surfMesh = eval([char(hemi),'_59k_white']);
+  surfMesh = eval([char(hemi),'_32k_white']);
     new_faces.(char(hemi)) = [];
     good_faces_bool.(char(hemi)) = [];
     for i=(1:size(surfMesh.faces,1))
