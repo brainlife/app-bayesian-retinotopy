@@ -98,5 +98,7 @@ This App only requires [singularity](https://www.sylabs.io/singularity/) to run.
 
 ### References
 [Benson et al, 2012. The retinotopic organization of striate cortex is well predicted by surface topology](https://doi.org/10.1016/j.cub.2012.09.014)
+
 [Benson et al, 2014. Correction of distortion in flattened representations of the cortical surface allows prediction of V1-V3 functional organization from anatomy](10.1371/journal.pcbi.1003538)
+
 [Benson et al, 2018. Bayesian analysis of retinotopic maps](10.7554/eLife.40224)
