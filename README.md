@@ -8,7 +8,7 @@ This app computes retinotopic maps on visual cortex surface using both measured 
 Because retinotopic maps in human visual cortex are expected to be spatially smooth, fitting maps using voxel-wise measurements alone introduces noise into the outputted pRF parameters that can be at least partially regressed out by considering each voxel within the context of the entire visual field and the corresponding cortex. Retinotopic maps have been shown to be well predicted by gyral and sulcal topology, and so a group-derived algebraic template can be fit to a subject's anatomy and used as a prior when fitting fMRI measurements. By using both measured, voxel-wise fMRI data collected during a retinotopic task and an anatomical atlas as a prior, the retinotopic maps derived are more accurate than those derived from either data alone or anatomy alone [Benson et al, 2018](10.7554/eLife.40224).
 
 pRF measures include:
-  polar angle: the location of the receptive field in polar coordinates (from the upper vertical meridian at 0° to the lower vertical meridian at 90°)
+  polar angle: the location of the receptive field in polar coordinates (from the upper vertical meridian at 0° to the lower vertical meridian at 180°)
   eccentricity: the deviation of the center of the receptive field from the fovea (in degrees)
   receptive field width: the size of the voxel's receptive field (the standard deviation of the receptive field's 2d isotropic Gaussian)
   visual area: the voxel's predicted visual area (1-12, key found in ./varea/key.txt)
