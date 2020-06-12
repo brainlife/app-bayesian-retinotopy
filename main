@@ -8,6 +8,7 @@ prf_surfs=$(jq -r .prf_surfs config.json)
 
 export SUBJECTS_DIR=`pwd`
 cp -R $fsdir $SUBJECTS_DIR && cp -R $fsdir $SUBJECTS_DIR/$(basename $fsdir)_MNI
+chmod -R +rw $SUBJECTS_DIR/$(basename $fsdir)_MNI
 
 rm -R $SUBJECTS_DIR/$(basename $fsdir)_MNI/surf && mkdir $SUBJECTS_DIR/$(basename $fsdir)_MNI/surf
 
