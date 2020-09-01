@@ -3,14 +3,17 @@
 fsdir=${1}
 
 echo "converting output to nifti"
-for i in ./ret_output/$(basename $fsdir)/mri/*inferred*
+#for i in ./ret_output/$(basename $fsdir)/mri/*inferred*
+for i in ${fsdir}/mri/*inferred*
 do 
 	mri_convert $i ${i%.*}.nii.gz
 done
 
 echo "organizing output"
-mv ./ret_output/$(basename $fsdir)/surf/*inferred* prf/prf_surfaces
-mv ./ret_output/$(basename $fsdir)/mri/*inferred*.nii.gz prf
+#mv ./ret_output/$(basename $fsdir)/surf/*inferred* prf/prf_surfaces
+#mv ./ret_output/$(basename $fsdir)/mri/*inferred*.nii.gz prf
+mv ${fsdir}/surf/*inferred* prf/prf_surfaces
+mv ${fsdir}/mri/*inferred*.nii.gz prf
 
 
 mv prf/inferred_eccen.nii.gz prf/eccentricity.nii.gz 
@@ -31,15 +34,15 @@ done
 echo "running create_R2"
 # this will create a binary mask R2 of 1's and 0's
 # based on whether a voxel is assigned a visual area or not
-./create_R2.py ./varea/parc.nii.gz ./prf/prf_surfaces/rh.varea ./prf/prf_surfaces/lh.varea
+#./create_R2.py ./varea/parc.nii.gz ./prf/prf_surfaces/rh.varea ./prf/prf_surfaces/lh.varea
 
 echo "saving surfaces in .mat file"
-./save_mat.py
+#./save_mat.py
 
 
 echo "creating vtks"
 mkdir -p prf/surfaces
-mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
+mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk # cras?
 mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
 mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
 mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk

@@ -1,5 +1,5 @@
 {
-  "fsdir": "testdata/output",
+  "output": "testdata/output",
   "r2": "testdata/prf/r2.nii.gz",
   "polarAngle": "testdata/prf/polarAngle.nii.gz",
   "eccentricity": "testdata/prf/eccentricity.nii.gz",
