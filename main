@@ -1,9 +1,8 @@
 #!/bin/bash
-#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=2:00:00
+#PBS -l nodes=1:ppn=4,vmem=50gb,walltime=1:00:00
 #PBS -N pRF
 #PBS -V
 
-cd /N/u/davhunt/Carbonate/Downloads/app-bayesian-retinotopy
 fsdir=$(jq -r .output config.json)
 prf_surfs=$(jq -r .prf_surfs config.json)
 surfaces=$(jq -r .surfaces config.json)
