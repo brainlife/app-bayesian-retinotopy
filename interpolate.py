@@ -17,15 +17,13 @@ fs_dir = './' + os.path.basename(config['output'])
 prf_surfs = config['prf_surfs']
 surfaces = config['surfaces']
 
-#giftis = loadmat('./saved_giftis.mat')
-
 # check that #vertices in Freesurfer surfaces are the same as prf surfaces
-num_vertices_gifti_rh = nib.load(prf_surfs + '/rh.r2.gii').darrays[0].data.shape[0]
-num_vertices_gifti_lh = nib.load(prf_surfs + '/lh.r2.gii').darrays[0].data.shape[0]
+num_vertices_prf_rh = nib.load(prf_surfs + '/rh.r2.gii').darrays[0].data.shape[0]
+num_vertices_prf_lh = nib.load(prf_surfs + '/lh.r2.gii').darrays[0].data.shape[0]
 num_vertices_fs_rh = fsio.read_geometry(fs_dir + '/surf/rh.white')[0].shape[0]
 num_vertices_fs_lh = fsio.read_geometry(fs_dir + '/surf/lh.white')[0].shape[0]
 
-if num_vertices_gifti_rh != num_vertices_fs_rh or num_vertices_gifti_lh != num_vertices_fs_lh:
+if num_vertices_prf_rh != num_vertices_fs_rh or num_vertices_prf_lh != num_vertices_fs_lh:
   if os.path.isfile(surfaces + '/rh.sphere.reg') and os.path.isfile(surfaces + '/lh.sphere.reg'):
     shutil.copyfile(surfaces + '/rh.sphere.reg', fs_dir + '_prf_space/surf/rh.sphere.reg')
     shutil.copyfile(surfaces + '/lh.sphere.reg', fs_dir + '_prf_space/surf/lh.sphere.reg')
@@ -41,14 +39,14 @@ if num_vertices_gifti_rh != num_vertices_fs_rh or num_vertices_gifti_lh != num_v
   else:
     sys.exit('can\'t find rh.white and lh.white surfaces in PRF input')
 
-  rh_eccentricity = fsio.read_morph_data(prf_surfs + '/rh.eccentricity')
-  rh_r2 = fsio.read_morph_data(prf_surfs + '/rh.r2')
-  rh_rfWidth = fsio.read_morph_data(prf_surfs + '/rh.rfWidth')
-  rh_polarAngle = fsio.read_morph_data(prf_surfs + '/rh.polarAngle')
-  lh_eccentricity = fsio.read_morph_data(prf_surfs + '/lh.eccentricity')
-  lh_r2 = fsio.read_morph_data(prf_surfs + '/lh.r2')
-  lh_rfWidth = fsio.read_morph_data(prf_surfs + '/lh.rfWidth')
-  lh_polarAngle = fsio.read_morph_data(prf_surfs + '/lh.polarAngle')
+  rh_eccentricity = nib.load(prf_surfs + '/rh.eccentricity.gii').darrays[0].data
+  rh_r2 = nib.load(prf_surfs + '/rh.r2.gii').darrays[0].data
+  rh_rfWidth = nib.load(prf_surfs + '/rh.rfWidth.gii').darrays[0].data
+  rh_polarAngle = nib.load(prf_surfs + '/rh.polarAngle.gii').darrays[0].data
+  lh_eccentricity = nib.load(prf_surfs + '/lh.eccentricity.gii').darrays[0].data
+  lh_r2 = nib.load(prf_surfs + '/lh.r2.gii').darrays[0].data
+  lh_rfWidth = nib.load(prf_surfs + '/lh.rfWidth.gii').darrays[0].data
+  lh_polarAngle = nib.load(prf_surfs + '/lh.polarAngle.gii').darrays[0].data
 
   native_sub = ny.freesurfer_subject(os.path.basename(fs_dir)) # cortex object in original subject space
   prf_sub = ny.freesurfer_subject(os.path.basename(fs_dir) + '_prf_space') #cortex object with prf measurements  in MNI space

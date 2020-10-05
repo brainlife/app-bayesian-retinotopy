@@ -15,7 +15,8 @@ prf_surfs = sys.argv[1]
 #mris_convert ${prf_surfs}/lh.eccentricity.gii ${prf_surfs}/lh.eccentricity
 #mris_convert ${prf_surfs}/rh.eccentricity.gii ${prf_surfs}/rh.eccentricity
 
-for i in ['r2', 'polarAngle', 'rfWidth', 'eccentricity']:
+#for i in ['r2', 'polarAngle', 'rfWidth', 'eccentricity']:
+for i in ['r2']:
   lh_gifti = nib.load(prf_surfs + '/lh.' + i + '.gii')
   fsio.write_morph_data(prf_surfs + '/lh.' + i, lh_gifti.darrays[0].data)
   rh_gifti = nib.load(prf_surfs + '/rh.' + i + '.gii')

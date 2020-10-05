@@ -3,10 +3,7 @@
 #PBS -N pRF
 #PBS -V
 
-#cd /N/u/davhunt/Carbonate/Downloads/app-bayesian-retinotopy
-
-
-
+cd /N/u/davhunt/Carbonate/Downloads/app-bayesian-retinotopy
 fsdir=$(jq -r .output config.json)
 prf_surfs=$(jq -r .prf_surfs config.json)
 surfaces=$(jq -r .surfaces config.json)
@@ -16,33 +13,14 @@ echo $FREESURFER_LICENSE > license.txt
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./convert_vtk2gii.sh ${surfaces} ${prf_surfs}
 
-time singularity exec -e docker://brainlife/dipy:0.16.0 ./convert_gii2curv.py $prf_surfs
-
-
-
-
-
-
-
 export SUBJECTS_DIR=`pwd`
 cp -R $fsdir $(basename $fsdir) && cp -R $fsdir $(basename $fsdir)_prf_space
 chmod -R +rw $(basename $fsdir) $(basename $fsdir)_prf_space
-
 rm -R $SUBJECTS_DIR/$(basename $fsdir)_prf_space/surf && mkdir $SUBJECTS_DIR/$(basename $fsdir)_prf_space/surf
-
-
 
 mkdir interpolated_prf_surfs
 mkdir -p prf/prf_surfaces varea varea_surf
 cp key.txt label.json varea && cp key.txt label.json varea_surf
-
-#time singularity exec -e docker://brainlife/mcr:r2019a ./compiled/main
-
-#mkdir ret_output
-
-
-
-
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://davhunt/neuropythy:1.5.1 bash -c "python ./interpolate.py \
   && python -m neuropythy register_retinotopy $(basename $fsdir) \
@@ -59,18 +37,12 @@ time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt 
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $(basename $fsdir)
 
-time singularity exec -e docker://brainlife/dipy:0.16.0 ./convert_curv2gii.py
+time singularity exec -e docker://brainlife/dipy:0.16.0 bash -c "./create_R2.py && ./convert_curv2gii.py"
 
-echo "done"
+if [ ! -s ./prf/prf_surfaces/lh.polarAngle.gii ];
+then
+	echo "output missing"
+	exit 1
+fi
 
-#  && ./create_vtks.sh ./ret_output/$(basename $fsdir)"
-
-#time singularity exec -e docker://brainlife/mcr:r2019a ./compiled/main #create GIFTI-format surfaces too
-
-#cp prf/prf_surfaces/lh.varea.gii varea_surf/lh.parc.annot.gii
-#cp prf/prf_surfaces/rh.varea.gii varea_surf/rh.parc.annot.gii
-
-#rm ./prf/prf_surfs.mat
-#rm -rf ./ret_output
-
-rm -rf output output_prf_space
+#rm -rf output output_prf_space interpolated_prf_surfs
