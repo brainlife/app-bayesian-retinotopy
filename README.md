@@ -3,6 +3,43 @@
 
 # app-bayesian-retinotopy
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Refines measured pRF maps with an anatomical retinotopy prior (Benson & Winawer 2018) using neuropythy, producing smoothed polar angle, eccentricity and size maps and visual-area labels.**
+
+Projects measured pRF surface maps onto the FreeSurfer surfaces and runs neuropythy register_retinotopy to fit a Bayesian retinotopic model that combines the measurements with an anatomical prior. Use it after a pRF mapping App to reduce noise and label visual areas V1-V3 and beyond. Needs the FreeSurfer subject and pRF output with surface maps.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/freesurfer` · `neuro/prf` |
+| 📤 **Outputs** | `neuro/prf` · `neuro/parcellation/volume` · `neuro/parcellation/surface-deprecated` |
+| 🐳 **Container** | `brainlife/freesurfer-mini:6.0.1` |
+| ⚙️ **Resources** | 4 CPUs · 50 GB memory · 1 h walltime |
+| 🔑 **Requires** | `FREESURFER_LICENSE` |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.245](https://doi.org/10.25663/brainlife.app.245) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `freesurfer` | `neuro/freesurfer` | yes | FreeSurfer subject directory of the same subject. |
+| `prf` | `neuro/prf` | yes | Measured pRF maps (r2, polar angle, eccentricity, rfWidth) including surface maps. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `prf` | `neuro/prf` | Inferred pRF maps (polar angle, eccentricity, rfWidth, visual area) in volume and on the surface (curv and GIFTI). |
+| `varea` | `neuro/parcellation/volume` | Volumetric parcellation into visual areas (key in key.txt). |
+| `varea_surf` | `neuro/parcellation/surface-deprecated` | Surface parcellation into visual areas. |
+
+📚 **References used by this App:**
+- Benson NC, Winawer J. Bayesian analysis of retinotopic maps. eLife 7:e40224 (2018). [doi:10.7554/eLife.40224](https://doi.org/10.7554/eLife.40224)
+- Benson NC, et al. The retinotopic organization of striate cortex is well predicted by surface topology. Curr Biol 22(21):2081-2085 (2012). [doi:10.1016/j.cub.2012.09.014](https://doi.org/10.1016/j.cub.2012.09.014)
+- Benson NC, et al. Correction of distortion in flattened representations of the cortical surface allows prediction of V1-V3 functional organization from anatomy. PLoS Comput Biol 10(3):e1003538 (2014). [doi:10.1371/journal.pcbi.1003538](https://doi.org/10.1371/journal.pcbi.1003538)
+
+<!-- brainlife-app:end -->
+
 This app computes retinotopic maps on visual cortex surface using both measured retinotopic data and an anatomical prior, following [Benson & Winawer 2018](https://elifesciences.org/articles/40224) and using Noah Benson's [neuropythy library](github.com/noahbenson/neuropythy).
 
 
